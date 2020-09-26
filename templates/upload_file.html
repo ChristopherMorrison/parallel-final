@@ -1,0 +1,21 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <form method="post" enctype="multipart/form-data" action="{% url 'file_upload' %}">
+    {% csrf_token %}
+    <table>
+      <tr>
+        <td>{{ form.title.label_tag }}</td>
+        <td>{{ form.title }}</td>
+        <td>{{ form.errors.title }}</td>
+      </tr>
+      <tr>
+        <td>{{ form.file.label_tag }}</td>
+        <td>{{ form.file }}</td>
+        <td>{{ form.errors.file }}</td>
+      </tr>
+    </table>
+    <br>
+    <input type="submit" value="Upload" />
+  </form>
+{% endblock %}

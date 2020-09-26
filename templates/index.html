@@ -1,0 +1,22 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        <p>You are authenticated as {{ user }}.</p>
+        <p>User Profile Details:</p>
+        <ul>
+            <li>First Name: {{ user.first_name }}</li>
+            <li>Last Name: {{ user.last_name }}</li>
+            <li>Email: {{ user.email }}</li>
+        </ul>
+        <p>Files:</p>
+        <ul>
+        {% for file in files %}
+           <li><a href="{% url 'file_download' file.id %}">{{ file.data.name }}</a> ({{ file.word_count }} words)</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <a href="{% url 'login' %}">Login</href>
+    {% endif %}
+
+{% endblock %}
