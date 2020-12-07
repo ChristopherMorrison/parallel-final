@@ -1,0 +1,29 @@
+# docker-compose.yml
+# This file tells docker-compose what to run
+# Use this file for setting deployment options
+# Use this file on the final server
+version: '3'
+
+services:
+  redis:
+    image: redis
+    ports:
+      - 6379:6379 # host:container
+
+  main-proc:
+    build: .
+    restart: 'always'
+    depends_on:
+      - redis
+    ports:
+      - 80:80 # host:container
+    tty: true
+
+  worker: # Note: scale this up before running tests
+    build: .
+    restart: 'always'
+    depends_on:
+      - redis
+    #command: watchmedo auto-restart --directory=./ --pattern=*.py --recursive -- celery -A settings worker ## watchdog is bad at dependency management
+    command: celery -A settings -b redis://redis worker
+    tty: true

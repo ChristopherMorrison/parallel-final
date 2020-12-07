@@ -1,9 +1,9 @@
-FROM alpine
+FROM ubuntu
 
-RUN apk update && apk add python3
+RUN apt update && apt install -y python3 python3-pip
 RUN pip3 install -U pip setuptools
 RUN pip3 install -U wheel
-RUN pip3 install -U django
+RUN pip3 install -U django redis celery pwntools ipython
 
 COPY . /app
 WORKDIR /app

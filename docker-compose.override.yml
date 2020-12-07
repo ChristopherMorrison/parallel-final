@@ -1,0 +1,18 @@
+# docker-compose.override.yml
+# This file is overrides settings in docker-compose.yml
+# Use this file for setting development options
+# Do not use this file on the final server
+version: '3'
+
+services:
+  main-proc:
+    volumes:
+      - '.:/app'
+    environment:
+      DJANGO_DEBUG: 'True'
+
+  worker:
+    volumes:
+      - '.:/app'
+    environment:
+      DJANGO_DEBUG: 'True'
